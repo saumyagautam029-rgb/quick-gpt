@@ -6,12 +6,19 @@ st.set_page_config(page_title="Quick-GPT", page_icon="🤖", layout="centered")
 st.title("🤖 Quick-GPT")
 st.caption("Powered by Groq & Llama 3.3")
 
-# Initialize Groq client using Streamlit secrets
-if "GROQ_API_KEY" not in st.secrets:
+# Retrieve API key safely from top-level or [general] section
+api_key = None
+if "GROQ_API_KEY" in st.secrets:
+    api_key = st.secrets["GROQ_API_KEY"]
+elif "general" in st.secrets and "GROQ_API_KEY" in st.secrets["general"]:
+    api_key = st.secrets["general"]["GROQ_API_KEY"]
+
+if not api_key:
     st.error("Please add your GROQ_API_KEY to Streamlit Secrets!")
     st.stop()
 
-client = Groq(api_key=st.secrets["GROQ_API_KEY"])
+# Initialize Groq client
+client = Groq(api_key=api_key)
 
 # Initialize session state for messages
 if "messages" not in st.session_state:
