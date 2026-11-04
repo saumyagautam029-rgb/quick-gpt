@@ -6,7 +6,7 @@ import userRouter from './routes/userRouter.js';
 import chatRouter from './routes/chatRouter.js';
 
 const app = express();
-const port = process.env.PORT || 4000; // Render will assign process.env.PORT automatically
+const port = process.env.PORT || 4000;
 
 // Middleware
 app.use(express.json());
