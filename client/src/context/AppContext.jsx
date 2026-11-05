@@ -4,7 +4,7 @@ export const AppContext = createContext();
 
 const AppContextProvider = (props) => {
     const [user, setUser] = useState(null);
-    const backendUrl = "http://localhost:4000";
+    const backendUrl = import.meta.env.VITE_BACKEND_URL || "https://quick-gpt-backend-1.onrender.com";
 
     const value = {
         user,
